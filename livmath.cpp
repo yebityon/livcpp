@@ -108,7 +108,7 @@ namespace livmath {
     modint operator/(const modint<mod>& b) const { return (v * b.inv().v) % mod; }
     modint<mod> inv() const { return pow(mod - 2); }
     modint<mod> pow(int t) const {
-      modint e = *this, c = 1;
+      modint e = v, c = 1;
       while (t) {
         if (odd(t)) c *= e;
         t >>= 1;
