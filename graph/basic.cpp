@@ -27,6 +27,7 @@ public:
     addArc(node2, node1, w);
   }
 
+  Graph toRootedTree(int r);
   std::vector<Weight> dijkstra(const int &src, const int &inf);
   Matrix warshallFloyd(const int &inf);
   std::pair<Weight, Edges> prim(const int &r);
