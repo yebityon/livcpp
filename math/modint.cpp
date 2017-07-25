@@ -11,7 +11,7 @@ struct modint {
   modint<mod> pow(int t) const {
     modint e = v, c = 1;
     while (t) {
-      if (odd(t)) c *= e;
+      if (t & 1) c *= e;
       t >>= 1;
       e *= e;
     }
@@ -25,6 +25,6 @@ struct modint {
   friend modint<mod>& operator*=(modint<mod>& a, const modint<mod>& b) { return a = a * b; }
   friend modint<mod>& operator/=(modint<mod>& a, const modint<mod>& b) { return a = a / b; }
   friend std::ostream& operator<<(std::ostream& os, const modint<mod>& a) { return os << a.v; }
-  friend std::istream& operator>>(std::istream& is, modint<mod>& a) { int v; is >> v; a = modint<mod>(v); return is; }
+  friend std::istream& operator>>(std::istream& is, modint<mod>& a) { int v; is >> v; a = v; return is; }
 };
 // clang-format on
