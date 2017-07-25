@@ -29,6 +29,7 @@ constexpr int MOD   = 1000000007;
 constexpr double PI = acos(-1);
 template<typename A, typename B> bool cmin(A &a, const B &b) { return a > b ? (a = b, true) : false; }
 template<typename A, typename B> bool cmax(A &a, const B &b) { return a < b ? (a = b, true) : false; }
+using namespace std;
 // clang-format on
 
 main {
