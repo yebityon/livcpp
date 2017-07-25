@@ -1,3 +1,7 @@
+// Tail call optimization
+// !!! DO NOT USE !!!
+// THIS IMPL IS CRAZY AND BUGGY!!!!!
+
 template<typename Result>
 class TCO {
   using NextFunc = std::function<TCO<Result>(void)>;
@@ -18,7 +22,7 @@ public:
 
   Result get() {
     auto t = *this;
-    while (true) {
+    forever {
       if (t.done) {
         return t.result;
       }
