@@ -32,5 +32,6 @@ public:
   Matrix warshallFloyd(const int &inf);
   std::pair<Weight, Edges> prim(const int &r);
   template<typename UnionFind> std::pair<Weight, Edges> kruskal();
+  Weight solveTSP(const int &inf);
   // clang-format on
 };
