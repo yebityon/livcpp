@@ -8,11 +8,6 @@
 #define all(v) (v).begin(), (v).end()
 #define rall(v) (v).rbegin(), (v).rend()
 #define prec(n) fixed << setprecision(n)
-#define pb push_back
-#define mp make_pair
-#define mt make_tuple
-#define fi first
-#define se second
 using pii   = std::pair<int, int>;
 using vi    = std::vector<int>;
 using vd    = std::vector<double>;

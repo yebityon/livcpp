@@ -15,5 +15,5 @@ std::pair<Weight, Edges> Graph::kruskal() {
       uf.unite(e.src, e.dst);
     }
   }
-  return std::make_pair(total, tree);
+  return {total, tree};
 }

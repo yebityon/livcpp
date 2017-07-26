@@ -18,5 +18,5 @@ std::pair<std::vector<Weight>, std::vector<int>> Graph::dijkstra(const int &src,
       }
     }
   }
-  return std::make_pair(dist, via);
+  return {dist, via};
 }

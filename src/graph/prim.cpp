@@ -20,5 +20,5 @@ std::pair<Weight, Edges> Graph::prim(const int &r = 0) {
       if (!vs[f.dst]) q.emplace(f);
     }
   }
-  return std::make_pair(total, tree);
+  return {total, tree};
 }
