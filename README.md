@@ -4,9 +4,10 @@
 ## ライブラリ構成
 * 必ず使う → `src/basic.cpp`
 * 日付 → `src/date/`
-* グラフ → `src/graph/`
-* 数学 → `src/math/`
 * 文字列 → `src/string/`
+* グラフ → `src/graph/`
+* モノイド → `src/monoids/`
+* 数学 → `src/math/`
 
 ### その他
 * いろいろ → `src/general/`
