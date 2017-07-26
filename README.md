@@ -8,6 +8,7 @@
 * グラフ → `src/graph/`
 * モノイド → `src/monoids/`
 * 数学 → `src/math/`
+* データ構造 → `src/data_structure/`
 
 ### その他
 * いろいろ → `src/general/`
