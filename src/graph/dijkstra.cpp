@@ -1,7 +1,8 @@
-std::vector<Weight> Graph::dijkstra(const int &src, const int &inf = std::numeric_limits<Weight>::max() / 8) {
+std::pair<std::vector<Weight>, std::vector<int>> Graph::dijkstra(const int &src, const int &inf = std::numeric_limits<Weight>::max() / 8) {
   using state = std::pair<Weight, int>;
   std::priority_queue<state, std::vector<state>, std::greater<state>> q;
   std::vector<Weight> dist(g.size(), inf);
+  std::vector<int> via(g.size());
   dist[src] = 0;
   q.emplace(0, src);
   while (q.size()) {
@@ -12,9 +13,10 @@ std::vector<Weight> Graph::dijkstra(const int &src, const int &inf = std::numeri
     if (dist[v] < d) continue;
     for (auto &e : g[v]) {
       if (cmin(dist[e.dst], dist[v] + e.weight)) {
+        via[e.dst] = v;
         q.emplace(dist[e.dst], e.dst);
       }
     }
   }
-  return dist;
+  return std::make_pair(dist, via);
 }
