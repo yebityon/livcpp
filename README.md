@@ -2,14 +2,14 @@
 **Li**bary for **v**vataarne written in **CPP**
 
 ## ライブラリ構成
-* 必ず使う → `basic.cpp`
-* 日付 → `date/`
-* グラフ → `graph/`
-* 数学 → `math/`
-* 文字列 → `string/`
+* 必ず使う → `src/basic.cpp`
+* 日付 → `src/date/`
+* グラフ → `src/graph/`
+* 数学 → `src/math/`
+* 文字列 → `src/string/`
 
 ### その他
-* いろいろ → `general/`
-* C++14が使えない残念なジャッジシステムに使う → `cpp11/`
-* コード整形ルール → `.clang-format`
-* 今あなたが読んでるもの → `README.md`
+* いろいろ → `src/general/`
+* C++14が使えない残念なジャッジシステムに使う → `src/cpp11/`
+* VSCode用スニペット生成スクリプト → 'tojson.js'
+* コード整形ルール → '.clang-format'
