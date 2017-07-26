@@ -1,2 +1,2 @@
-template<int inf>
-Monoid<int> minMonoid = {inf, [](int a, int b) { return min(a, b); }};
+template<int upperInf>
+Monoid<int> minMonoid = {upperInf, [](int a, int b) { return min(a, b); }};
