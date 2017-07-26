@@ -11,5 +11,5 @@
 ### その他
 * いろいろ → `src/general/`
 * C++14が使えない残念なジャッジシステムに使う → `src/cpp11/`
-* VSCode用スニペット生成スクリプト → 'tojson.js'
-* コード整形ルール → '.clang-format'
+* VSCode用スニペット生成スクリプト → `tojson.js`
+* コード整形ルール → `.clang-format`
