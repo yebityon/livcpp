@@ -5,6 +5,8 @@ template<typename Monoid> class SegTree {
   std::vector<T> data;
   int size = 1;
 
+  void _update(int i) { data[i] = m(data[i * 2], data[i * 2 + 1]); }
+
 public:
   SegTree(const int &n = 0) {
     m = Monoid();
@@ -18,7 +20,7 @@ public:
     while (size < n) size *= 2;
     data.resize(size * 2, m.id());
     std::copy(first, last, data.begin() + size);
-    for (int i = size - 1; i >= 1; i--) data[i] = m(data[i * 2], data[i * 2 + 1]);
+    for (int i = size - 1; i >= 1; i--) _update(i);
   }
 
   T fold(int l, int r) const { // [l, r)
@@ -32,7 +34,7 @@ public:
 
   void update(int i, const T &x) {
     data[i += size] = x;
-    while (i /= 2) data[i] = m(data[i * 2], data[i * 2 + 1]);
+    while (i /= 2) _update(i);
   }
 
   const T &operator[](int i) const { return data[i + size]; }
