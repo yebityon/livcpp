@@ -18,7 +18,7 @@ public:
     while (size < n) size *= 2;
     data.resize(size * 2, m.id());
     std::copy(first, last, data.begin() + size);
-    for (int i = size - 1; i >= 1; --i) data[i] = m(data[i * 2], data[i * 2 + 1]);
+    for (int i = size - 1; i >= 1; i--) data[i] = m(data[i * 2], data[i * 2 + 1]);
   }
 
   T fold(int l, int r) const { // [l, r)
