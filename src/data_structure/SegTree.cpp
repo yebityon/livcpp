@@ -23,7 +23,7 @@ public:
 
   T fold(int l, int r) const { // [l, r)
     T acc = m.id();
-    for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
+    for (l += size, r += size; l < r; l /= 2, r /= 2) {
       if (l & 1) acc = m(acc, data[l++]);
       if (r & 1) acc = m(acc, data[--r]);
     }
