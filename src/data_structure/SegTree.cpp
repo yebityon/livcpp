@@ -1,28 +1,39 @@
-template<typename T> class SegTree {
-private:
-  vector<T> data;
-  Monoid<T> monoid;
+template<typename Monoid> class SegTree {
+  using T = typename Monoid::value_type;
+
+  Monoid m;
+  std::vector<T> data;
   int size = 1;
 
 public:
-  SegTree(const int &n, const Monoid<T> &m = Monoid<int>(INF, [](int a, int b) { return min(a, b); })) : monoid(m) {
+  SegTree(const int &n = 0) {
+    m = Monoid();
     while (size < n) size *= 2;
-    data = vector<T>(2 * size, monoid.id);
+    data.assign(size * 2, m.id());
+  }
+
+  template<typename InputIterator> SegTree(InputIterator first, InputIterator last) {
+    m = Monoid();
+    int n = std::distance(first, last);
+    while (size < n) size *= 2;
+    data.resize(size * 2, m.id());
+    std::copy(first, last, data.begin() + size);
+    for (int i = size - 1; i >= 1; --i) data[i] = m(data[i * 2], data[i * 2 + 1]);
+  }
+
+  T fold(int l, int r) const { // [l, r)
+    T acc = m.id();
+    for (l += size, r += size; l < r; l >>= 1, r >>= 1) {
+      if (l & 1) acc = m(acc, data[l++]);
+      if (r & 1) acc = m(acc, data[--r]);
+    }
+    return acc;
   }
 
   void update(int i, const T &x) {
-    i += size;
-    data[i] = x;
-    while (i /= 2) data[i] = monoid.op(data[i * 2], data[i * 2 + 1]);
+    data[i += size] = x;
+    while (i /= 2) data[i] = m(data[i * 2], data[i * 2 + 1]);
   }
 
-  // fold [a, b) by monoid.op
-  T fold(const int &a, const int &b, const int &k = 1, const int &l = 0, int r = -1) {
-    if (r == -1) r = size;
-    if (r <= a || b <= l) return monoid.id;
-    if (a <= l && r <= b) return data[k];
-    return monoid.op(fold(a, b, k * 2, l, (l + r) / 2), fold(a, b, k * 2 + 1, (l + r) / 2, r));
-  }
-
-  const T &operator[](const int &i) const { return data[i + size]; }
+  const T &operator[](int i) const { return data[i + size]; }
 };

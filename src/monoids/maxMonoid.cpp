@@ -1,2 +1,5 @@
-template<int lowerInf = std::numeric_limits<int>::min() / 8>
-Monoid<int> maxMonoid = {lowerInf, [](int a, int b) { return max(a, b); }};
+template<typename T, T lowerInf = std::numeric_limits<T>::min()> struct maxMonoid {
+  using value_type = T;
+  constexpr T id() const { return lowerInf; }
+  T operator()(const T &a, const T &b) const { return std::max(a, b); }
+};

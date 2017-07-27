@@ -1,1 +1,5 @@
-Monoid<int> xorMonoid = {0, [](const int &x, const int &y) { return x ^ y; }};
+template<typename T = bool> struct xorMonoid {
+  using value_type = T;
+  constexpr T id() const { return 0; }
+  T operator()(const T &a, const T &b) const { return a ^ b; }
+};

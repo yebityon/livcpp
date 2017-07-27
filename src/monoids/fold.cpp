@@ -1,8 +1,7 @@
-template<class InputIterator, class T> T fold(InputIterator first, InputIterator last, Monoid<T> m) {
-  T init = m.id;
-  while (first != last) {
-    init = m.op(init, *first);
-    ++first;
-  }
-  return init;
+template<class Monoid, class InputIterator> typename Monoid::value_type fold(InputIterator first, InputIterator last) {
+  Monoid m = Monoid();
+  using T = typename Monoid::value_type;
+  T acc = m.id();
+  std::for_each(first, last, [&](T &x) { acc = m(acc, x); });
+  return acc;
 }
