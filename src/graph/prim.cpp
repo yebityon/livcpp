@@ -1,8 +1,6 @@
 std::pair<Weight, Edges> Graph::prim(const int &r = 0) {
   struct comp {
-    bool operator()(const Edge &e, const Edge &f) const {
-      return e.weight > f.weight;
-    }
+    bool operator()(const Edge &e, const Edge &f) const { return e.weight > f.weight; }
   };
   Edges tree;
   Weight total = 0;
