@@ -1,3 +1,4 @@
+// clang-format off
 #include <bits/stdc++.h>
 #define int long long
 #define main signed main()
@@ -22,6 +23,8 @@ constexpr int MOD = 1000000007;
 constexpr double PI = acos(-1);
 template<typename A, typename B> bool cmin(A &a, const B &b) { return a > b ? (a = b, true) : false; }
 template<typename A, typename B> bool cmax(A &a, const B &b) { return a < b ? (a = b, true) : false; }
+template<typename T> std::istream &operator>>(std::istream &is, std::vector<T> &v) { for (T &x : v) is >> x; return is; }
 using namespace std;
+// clang-format on
 
 main { cout << 57 << endl; }
