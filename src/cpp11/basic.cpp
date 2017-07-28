@@ -24,4 +24,6 @@ template<typename T> std::istream &operator>>(std::istream &is, std::vector<T> &
 using namespace std;
 // clang-format on
 
-main { cout << 57 << endl; }
+main {
+  //
+}
