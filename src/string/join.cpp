@@ -1,6 +1,7 @@
-template<typename V> constexpr std::string join(const V &v, const std::string &sep) {
+template<typename InputIterator> constexpr std::string join(InputIterator first, InputIterator last, const std::string &sep) {
+  if (first == last) return "";
   std::stringstream ss;
-  if (v.size()) ss << v[0];
-  loop(i, 1, v.size()) ss << sep << v[i];
+  ss << *(first++);
+  for_each(first, last, [&](auto &x) { ss << sep << x; });
   return ss.str();
 }
