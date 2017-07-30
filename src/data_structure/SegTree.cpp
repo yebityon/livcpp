@@ -15,8 +15,8 @@ public:
   }
 
   template<typename InputIterator> SegTree(InputIterator first, InputIterator last) {
-    m = Monoid();
     int n = std::distance(first, last);
+    m = Monoid();
     while (size < n) size *= 2;
     tree.resize(size * 2, m.id());
     std::copy(first, last, tree.begin() + size);
