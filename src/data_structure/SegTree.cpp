@@ -2,7 +2,7 @@ template<typename Monoid> class SegTree {
   using T = typename Monoid::value_type;
 
   Monoid m;
-  std::vector<T> tree;
+  std::vector<T> tree; // 1-indexed
   int size = 1;
 
   void _update(int i) { tree[i] = m(tree[i * 2], tree[i * 2 + 1]); }
