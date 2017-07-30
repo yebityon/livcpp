@@ -1,4 +1,4 @@
-std::pair<std::vector<Weight>, std::vector<int>> Graph::dijkstra(const int &src, const int &inf = std::numeric_limits<Weight>::max() / 8) {
+template<int inf = std::numeric_limits<Weight>::max() / 8> std::pair<std::vector<Weight>, std::vector<int>> dijkstra(const Graph &g, const int &src) {
   using state = std::pair<Weight, int>;
   std::priority_queue<state, std::vector<state>, std::greater<state>> q;
   std::vector<Weight> dist(g.size(), inf);

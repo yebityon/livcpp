@@ -1,11 +1,11 @@
-Graph Graph::toRootedTree(int r = 0) {
+Graph toRootedTree(const Graph &g, const int &root = 0) {
   int n = g.size();
   Graph tree(n);
   std::vector<int> ord(n, -1);
   std::queue<int> q;
-  q.push(r);
+  q.push(root);
   int k = 0;
-  ord[r] = k++;
+  ord[root] = k++;
   while (q.size()) {
     int u = q.front();
     q.pop();

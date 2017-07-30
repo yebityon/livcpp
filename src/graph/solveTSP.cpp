@@ -1,4 +1,4 @@
-Weight Graph::solveTSP(const int &inf = std::numeric_limits<Weight>::max() / 8) {
+template<int inf = std::numeric_limits<Weight>::max() / 8> Weight solveTSP(const Graph &g) {
   int n = g.size();
   Matrix dp(1 << n, Array(n, inf));
   dp[0][0] = 0;
