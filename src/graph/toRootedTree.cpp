@@ -5,6 +5,7 @@ Graph Graph::toRootedTree(int r = 0) {
   std::queue<int> q;
   q.push(r);
   int k = 0;
+  ord[r] = k++;
   while (q.size()) {
     int u = q.front();
     q.pop();
@@ -13,7 +14,7 @@ Graph Graph::toRootedTree(int r = 0) {
       if (ord[v] == -1) {
         ord[v] = k++;
         q.push(v);
-        tree.addEdge(u, v, e.weight);
+        tree.addArc(u, v, e.weight);
       }
     }
   }
