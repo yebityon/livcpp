@@ -24,7 +24,7 @@ constexpr double PI = acos(-1);
 template<typename A, typename B> bool cmin(A &a, const B &b) { return a > b ? (a = b, true) : false; }
 template<typename A, typename B> bool cmax(A &a, const B &b) { return a < b ? (a = b, true) : false; }
 template<typename T> std::istream &operator>>(std::istream &is, std::vector<T> &v) { for (T &x : v) is >> x; return is; }
-template<typename A, typename B> std::istream &operator>>(std::istream &is, std::pair<A,B> &p) { is >> p.first; is >> p.second; return is; }
+template<typename A, typename B> std::istream &operator>>(std::istream &is, std::pair<A, B> &p) { is >> p.first; is >> p.second; return is; }
 using namespace std;
 // clang-format on
 
