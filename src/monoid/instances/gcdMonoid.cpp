@@ -1,5 +1,5 @@
-template<typename T = int> struct gcdMonoid {
-  using value_type = T;
-  constexpr T id() const { return 0; }
-  T operator()(const T &a, const T &b) const { return gcd(a, b); }
+struct gcdMonoid {
+  using value_type = int;
+  constexpr int id() const { return 0; }
+  int operator()(const int &a, const int &b) const { return gcd(a, b); }
 };
