@@ -1,5 +1,5 @@
 # livcpp
-**Li**bary for **v**vataarne written in **CPP**
+**Li**brary for **v**vataarne written in **CPP**
 
 ## ライブラリ構成
 * 本体 → `src/`
