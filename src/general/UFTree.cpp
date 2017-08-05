@@ -18,4 +18,6 @@ public:
   }
 
   int sizeOf(int x) { return _size[root(x)]; }
+
+  int size() { return data.size(); }
 };
