@@ -1,3 +1,4 @@
+// Note that fenwick tree only works in COMMUTATIVE group!!!
 template<typename Group> class FenwickTree {
   using T = typename Group::value_type;
 
