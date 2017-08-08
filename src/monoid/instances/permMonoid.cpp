@@ -1,12 +1,12 @@
 template<int size, typename T> struct permMonoid {
   using value_type = T;
-  constexpr T id() {
-    T v(size);
+  constexpr value_type id() {
+    value_type v(size);
     iota(v.begin(), v.end(), 0);
     return v;
   }
-  T operator()(const T &a, const T &b) const {
-    T v(size);
+  value_type operator()(const value_type &a, const value_type &b) const {
+    value_type v(size);
     rep(i, size) v[i] = b[a[i]];
     return v;
   }

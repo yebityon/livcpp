@@ -1,5 +1,5 @@
 template<typename T, T upperInf = std::numeric_limits<T>::max()> struct minMonoid {
   using value_type = T;
-  constexpr T id() { return upperInf; }
-  constexpr T operator()(const T &a, const T &b) { return a < b ? a : b; }
+  constexpr value_type id() { return upperInf; }
+  constexpr value_type operator()(const value_type &a, const value_type &b) { return a < b ? a : b; }
 };
