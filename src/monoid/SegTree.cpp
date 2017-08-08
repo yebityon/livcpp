@@ -9,14 +9,12 @@ template<typename Monoid> class SegTree {
 
 public:
   SegTree(const int &n = 0) {
-    m = Monoid();
     while (size < n) size *= 2;
     tree.assign(size * 2, m.id());
   }
 
   template<typename InputIterator> SegTree(InputIterator first, InputIterator last) {
     int n = std::distance(first, last);
-    m = Monoid();
     while (size < n) size *= 2;
     tree.resize(size * 2, m.id());
     std::copy(first, last, tree.begin() + size);
