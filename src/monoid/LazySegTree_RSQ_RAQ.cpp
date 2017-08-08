@@ -33,7 +33,7 @@ public:
     tree[i] = tree[i * 2] + tree[i * 2 + 1];
   }
 
-  // [l, r]
+  // [l, r)
   T sum(int l, int r) { return sum(l, r, 1, 0, size); }
   T sum(int l, int r, int i, int a, int b) {
     flush(i, a, b);
