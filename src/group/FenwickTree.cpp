@@ -1,6 +1,5 @@
-// Note that fenwick tree only works in COMMUTATIVE group!!!
-template<typename Group> class FenwickTree {
-  using T = typename Group::value_type;
+template<typename CommutativeGroup> class FenwickTree {
+  using T = typename CommutativeGroup::value_type;
 
   Group g;
   std::vector<T> tree; // 1-indexed
