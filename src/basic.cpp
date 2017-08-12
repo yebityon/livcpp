@@ -20,7 +20,7 @@ using vvi = V<vi>;
 using vvpii = V<vpii>;
 constexpr int INF = sizeof(int) == sizeof(long long) ? 1000000000000000000LL : 1000000000;
 constexpr int MOD = 1000000007;
-constexpr double PI = acos(-1);
+constexpr double PI = 3.14159265358979;
 template<typename A, typename B> bool cmin(A &a, const B &b) { return a > b ? (a = b, true) : false; }
 template<typename A, typename B> bool cmax(A &a, const B &b) { return a < b ? (a = b, true) : false; }
 constexpr bool odd(const int &n) { return n & 1; }

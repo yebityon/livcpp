@@ -17,7 +17,7 @@ typedef std::vector<vi> vvi;
 typedef std::vector<vpii> vvpii;
 const int INF = sizeof(int) == sizeof(long long) ? 1000000000000000000LL : 1000000000;
 const int MOD = 1000000007;
-const double PI = acos(-1);
+const double PI = 3.14159265358979;
 template<typename A, typename B> bool cmin(A &a, const B &b) { return a > b ? (a = b, true) : false; }
 template<typename A, typename B> bool cmax(A &a, const B &b) { return a < b ? (a = b, true) : false; }
 bool odd(const int &n) { return n & 1; }
