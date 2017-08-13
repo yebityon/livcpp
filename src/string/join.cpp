@@ -1,4 +1,4 @@
-template<typename InputIterator> constexpr std::string join(InputIterator first, InputIterator last, const std::string &sep) {
+template<typename InputIterator> std::string join(InputIterator first, InputIterator last, const std::string &sep) {
   if (first == last) return "";
   std::stringstream ss;
   ss << *(first++);
