@@ -12,15 +12,15 @@ template<typename T> class LazySegTree_RSQ_RAQ {
   }
 
 public:
-  LazySegTree_RSQ_RAQ(const int &n) {
+  LazySegTree_RSQ_RAQ(const int n) {
     while (size < n) size *= 2;
     tree.assign(size * 2, 0);
     lazy.assign(size * 2, 0);
   }
 
   // [l, r)
-  void add(int l, int r, const int &x) { add(l, r, x, 1, 0, size); }
-  void add(const int l, const int r, const int &x, int i, int a, int b) {
+  void add(int l, int r, const int x) { add(l, r, x, 1, 0, size); }
+  void add(const int l, const int r, const int x, int i, int a, int b) {
     flush(i, a, b);
     if (b <= l || r <= a) return;
     if (l <= a && b <= r) {

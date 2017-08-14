@@ -2,11 +2,11 @@ class UFTree {
   std::vector<int> data, rank, _size;
 
 public:
-  UFTree(const int &n) : data(n), rank(n), _size(n, 1) { iota(all(data), 0); }
+  UFTree(const int n) : data(n), rank(n), _size(n, 1) { iota(all(data), 0); }
 
-  int root(const int &x) { return data[x] == x ? x : data[x] = root(data[x]); }
+  int root(const int x) { return data[x] == x ? x : data[x] = root(data[x]); }
 
-  bool same(const int &a, const int &b) { return root(a) == root(b); }
+  bool same(const int a, const int b) { return root(a) == root(b); }
 
   void unite(int a, int b) {
     a = root(a), b = root(b);

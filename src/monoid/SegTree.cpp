@@ -8,7 +8,7 @@ template<typename Monoid> class SegTree {
   void _update(int i) { tree[i] = m(tree[i * 2], tree[i * 2 + 1]); }
 
 public:
-  SegTree(const int &n = 0) {
+  SegTree(const int n = 0) {
     while (size < n) size *= 2;
     tree.assign(size * 2, m.id());
   }

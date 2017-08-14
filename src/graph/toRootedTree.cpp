@@ -1,4 +1,4 @@
-Graph toRootedTree(const Graph &g, const int &root = 0) {
+Graph toRootedTree(const Graph &g, const int root = 0) {
   int n = g.size();
   Graph tree(n);
   std::vector<int> ord(n, -1);

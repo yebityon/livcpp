@@ -1,4 +1,4 @@
-std::pair<Weight, Edges> prim(const Graph &g, const int &root = 0) {
+std::pair<Weight, Edges> prim(const Graph &g, const int root = 0) {
   struct comp {
     bool operator()(const Edge &e, const Edge &f) const { return e.weight > f.weight; }
   };

@@ -1,4 +1,4 @@
-template<typename Integral = int> Integral nCr(const int &n, const int &r) {
+template<typename Integral = int> Integral nCr(const int n, const int r) {
   int c = n - r;
   if (c < r) return nCr<Integral>(n, c);
   static std::vector<std::vector<Integral>> dp(1, std::vector<Integral>(1, 1));

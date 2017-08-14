@@ -6,7 +6,7 @@ template<typename CommutativeGroup> class FenwickTree {
   int size;
 
 public:
-  FenwickTree(const int &n = 0) : size(n), g() { tree.assign(size + 1, g.id()); }
+  FenwickTree(const int n = 0) : size(n), g() { tree.assign(size + 1, g.id()); }
 
   T fold(int i) { // [0, i)
     T acc = g.id();
@@ -14,7 +14,7 @@ public:
     return acc;
   }
 
-  T fold(const int &l, const int &r) { return g(fold(r), g.inv(fold(l))); } // [l, r)
+  T fold(const int l, const int r) { return g(fold(r), g.inv(fold(l))); } // [l, r)
 
   void add(int i, const T &x) {
     for (i++; i <= size; i += i & -i) tree[i] = g(tree[i], x);
