@@ -21,13 +21,13 @@ public:
     for (int i = size - 1; i >= 1; i--) _update(i);
   }
 
-  T fold(int l, int r) const { // [l, r)
-    T acc = m.id();
+  T fold(int l, int r) { // [l, r)
+    T accl = m.id(), accr = m.id();
     for (l += size, r += size; l < r; l /= 2, r /= 2) {
-      if (l & 1) acc = m(acc, tree[l++]);
-      if (r & 1) acc = m(acc, tree[--r]);
+      if (l & 1) accl = m(accl, tree[l++]);
+      if (r & 1) accr = m(tree[--r], accr);
     }
-    return acc;
+    return m(accl, accr);
   }
 
   void update(int i, const T &x) {
