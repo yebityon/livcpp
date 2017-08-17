@@ -4,9 +4,9 @@ template<typename LSTTrait> class LazySegTree {
   using T = typename FoldMonoid::value_type;
   using Q = typename ActionMonoid::value_type;
 
-  LSTTrait lstTrait;
+  LSTTrait lstTrait; // apply :: (T, Q) -> T
   FoldMonoid foldM;
-  ActionMonoid actionM; // apply :: (T, Q) -> T
+  ActionMonoid actionM;
   int size = 1;
   std::vector<T> tree; // 1-indexed
   std::vector<Q> lazy; // 1-indexed
