@@ -16,7 +16,7 @@ class Graph {
 
 public:
   Graph(const int size = 0) : g(size) {}
-  int size() const { return g.size(); }
+  size_t size() const { return g.size(); }
   const Edges &operator[](const int i) const { return g[i]; }
   void addArc(const int src, const int dst, const Weight w = 1) { g[src].emplace_back(src, dst, w); }
   void addEdge(const int node1, const int node2, const Weight w = 1) {
