@@ -21,7 +21,7 @@ template<typename LSTTrait> class LazySegTree {
   }
 
 public:
-  LazySegTree(const int n) {
+  LazySegTree(const int n = 0) {
     while (size < n) size *= 2;
     tree.assign(size * 2, foldM.id());
     lazy.assign(size * 2, actionM.id());
