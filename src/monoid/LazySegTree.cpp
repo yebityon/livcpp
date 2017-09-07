@@ -27,6 +27,15 @@ public:
     lazy.assign(size * 2, actionM.id());
   }
 
+  template<typename InputIterator> LazySegTree(InputIterator first, InputIterator last) {
+    int n = std::distance(first, last);
+    while (size < n) size *= 2;
+    tree.resize(size * 2, foldM.id());
+    lazy.resize(size * 2, actionM.id());
+    std::copy(first, last, tree.begin() + size);
+    for (int i = size - 1; i >= 1; i--) tree[i] = foldM(tree[i * 2], tree[i * 2 + 1]);
+  }
+
   // [l, r)
   void act(int l, int r, const Q x) { act(l, r, x, 1, 0, size); }
   void act(const int l, const int r, const Q x, int i, int a, int b) {
