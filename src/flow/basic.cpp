@@ -1,7 +1,8 @@
 using Flow = int;
 struct FlowEdge {
-  int src, dst, rev;
+  int src, dst;
   Flow cap;
+  int rev;
   FlowEdge(const int s = 0, const int d = 0, const Flow c = 0, const int r = 0) : src(s), dst(d), cap(c), rev(r) {}
 };
 
