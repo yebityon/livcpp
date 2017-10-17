@@ -17,13 +17,13 @@ template<int inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g,
     }
     return level[sink] != -1;
   };
-  std::function<Flow(int, int)> dfs = [&](int v, int f) -> Flow {
+  std::function<Flow(int, Flow)> dfs = [&](int v, Flow f) -> Flow {
     if (v == sink) return f;
     Flow s = 0;
     for (; iter[v] < g[v].size(); iter[v]++) {
       auto &e = g[v][iter[v]];
       if (level[v] >= level[e.dst] || e.cap <= 0) continue;
-      int d = dfs(e.dst, min(f, e.cap));
+      Flow d = dfs(e.dst, min(f, e.cap));
       e.cap -= d;
       g[e.dst][e.rev].cap += d;
       s += d;
