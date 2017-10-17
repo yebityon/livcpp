@@ -1,3 +1,4 @@
+// Change it to 'FlowGraph &g' when you need a residual network
 template<Flow inf = std::numeric_limits<Flow>::max() / 8> Flow fordFulkerson(FlowGraph g, const int source, const int sink) {
   std::vector<int> used(g.size());
   std::function<Flow(int, Flow)> dfs = [&](int s, Flow f) -> Flow {

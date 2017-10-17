@@ -1,3 +1,4 @@
+// Change it to 'FlowGraph &g' when you need a residual network
 template<int inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g, const int source, const int sink) {
   std::vector<int> level(g.size()), iter(g.size());
   auto bfs = [&](int s) -> bool {
