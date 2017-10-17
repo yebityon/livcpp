@@ -1,19 +1,18 @@
 // Change it to 'FlowGraph &g' when you need a residual network
-template<int inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g, const int source, const int sink) {
+template<Flow inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g, const int source, const int sink) {
   std::vector<int> level(g.size()), iter(g.size());
-  auto bfs = [&](int s) -> bool {
+  auto bfs = [&] {
     std::fill(level.begin(), level.end(), -1);
     std::queue<int> q;
-    level[s] = 0;
-    q.push(s);
+    level[source] = 0;
+    q.push(source);
     while (q.size()) {
       int v = q.front();
       q.pop();
       for (auto &e : g[v]) {
-        if (e.cap > 0 && level[e.dst] == -1) {
-          level[e.dst] = level[v] + 1;
-          q.push(e.dst);
-        }
+        if (e.cap <= 0 || level[e.dst] >= 0) continue;
+        level[e.dst] = level[v] + 1;
+        q.push(e.dst);
       }
     }
     return level[sink] != -1;
@@ -34,7 +33,7 @@ template<int inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g,
     return s;
   };
   Flow s = 0;
-  while (bfs(source)) {
+  while (bfs()) {
     std::fill(iter.begin(), iter.end(), 0);
     s += dfs(source, inf);
   }
