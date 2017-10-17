@@ -10,12 +10,12 @@ template<Flow inf = std::numeric_limits<Flow>::max() / 8> Flow dinic(FlowGraph g
       int v = q.front();
       q.pop();
       for (auto &e : g[v]) {
-        if (e.cap <= 0 || level[e.dst] >= 0) continue;
+        if (level[e.dst] >= 0 || e.cap <= 0) continue;
         level[e.dst] = level[v] + 1;
         q.push(e.dst);
       }
     }
-    return level[sink] != -1;
+    return level[sink] >= 0;
   };
   std::function<Flow(int, Flow)> dfs = [&](int v, Flow f) -> Flow {
     if (v == sink) return f;
