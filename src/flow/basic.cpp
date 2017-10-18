@@ -10,6 +10,8 @@ using FlowEdges = std::vector<FlowEdge>;
 
 class FlowGraph {
   std::vector<FlowEdges> g;
+  using iterator = std::vector<FlowEdges>::iterator;
+  using const_iterator = std::vector<FlowEdges>::const_iterator;
 
 public:
   FlowGraph(const int size = 0) : g(size) {}
@@ -20,4 +22,8 @@ public:
     g[src].emplace_back(src, dst, c, g[dst].size());
     g[dst].emplace_back(dst, src, 0, g[src].size() - 1);
   }
+  iterator begin() { return g.begin(); }
+  const_iterator begin() const { return g.begin(); }
+  iterator end() { return g.end(); }
+  const_iterator end() const { return g.end(); }
 };
