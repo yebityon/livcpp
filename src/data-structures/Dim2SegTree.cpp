@@ -27,7 +27,7 @@ public:
     for (int i = sizeH - 1; i >= 1; i--) loop(j, 1, 2 * sizeW) tree[i][j] = m(tree[i * 2][j], tree[i * 2 + 1][j]);
   }
 
-  T foldW(int i, int l, int r) { // [l, r)
+  T foldW(const int i, int l, int r) { // [l, r)
     T accl = m.id(), accr = m.id();
     for (l += sizeW, r += sizeW; l < r; l /= 2, r /= 2) {
       if (l & 1) accl = m(accl, tree[i][l++]);
@@ -36,7 +36,7 @@ public:
     return m(accl, accr);
   }
 
-  T fold(int t, int b, int l, int r) { // [t, b), [l, r)
+  T fold(int t, int b, const int l, const int r) { // [t, b), [l, r)
     T acct = m.id(), accb = m.id();
     for (t += sizeH, b += sizeH; t < b; t /= 2, b /= 2) {
       if (t & 1) acct = m(acct, foldW(t++, l, r));
