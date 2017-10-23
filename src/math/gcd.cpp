@@ -1,4 +1,4 @@
-constexpr int gcd(int a, int b) {
-  while (b) b ^= a ^= b ^= a %= b;
+int gcd(int a, int b) {
+  while (b) a %= b, std::swap(a, b);
   return a;
 }
