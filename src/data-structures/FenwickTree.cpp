@@ -1,7 +1,7 @@
 template<typename CommutativeGroup> class FenwickTree {
   using T = typename CommutativeGroup::value_type;
 
-  Group g;
+  CommutativeGroup g;
   std::vector<T> tree; // 1-indexed
   int size;
 
