@@ -8,11 +8,7 @@ template<typename UnionFind> std::pair<Weight, Edges> kruskal(const Graph &g) {
   Weight total = 0;
   Edges tree;
   for (auto &e : es) {
-    if (!uf.same(e.src, e.dst)) {
-      tree.push_back(e);
-      total += e.weight;
-      uf.unite(e.src, e.dst);
-    }
+    if (uf.unite(e.src, e.dst)) tree.push_back(e), total += e.weight;
   }
   return {total, tree};
 }

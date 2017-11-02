@@ -1,23 +1,24 @@
 class UFTree {
-  std::vector<int> data, rank, _size;
+  std::vector<int> tree, rank, _size;
 
 public:
-  UFTree(const int n) : data(n), rank(n), _size(n, 1) { iota(all(data), 0); }
+  UFTree(const int n) : tree(n), rank(n), _size(n, 1) { iota(all(tree), 0); }
 
-  int root(const int x) { return data[x] == x ? x : data[x] = root(data[x]); }
+  int root(const int x) { return tree[x] == x ? x : tree[x] = root(tree[x]); }
 
   bool same(const int a, const int b) { return root(a) == root(b); }
 
-  void unite(int a, int b) {
+  bool unite(int a, int b) {
     a = root(a), b = root(b);
-    if (a == b) return;
+    if (a == b) return false;
     if (rank[a] < rank[b]) std::swap(a, b);
-    data[b] = a;
+    tree[b] = a;
     _size[a] += _size[b];
     if (rank[a] == rank[b]) rank[a]++;
+    return true;
   }
 
   int sizeOf(int x) { return _size[root(x)]; }
 
-  int size() { return data.size(); }
+  int size() { return tree.size(); }
 };
