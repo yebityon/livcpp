@@ -14,11 +14,7 @@ template<Flow inf = std::numeric_limits<Flow>::max() / 8> Flow fordFulkerson(Flo
     }
     return 0;
   };
-  Flow s = 0;
-  for (;;) {
-    std::fill(used.begin(), used.end(), false);
-    Flow f = dfs(source, inf);
-    if (f == 0) return s;
-    s += f;
-  }
+  Flow s, f;
+  for (s = 0; (f = dfs(source, inf)); s += f) std::fill(used.begin(), used.end(), false);
+  return s;
 }
