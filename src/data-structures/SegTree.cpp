@@ -5,8 +5,6 @@ template<typename Monoid> class SegTree {
   std::vector<T> tree; // 1-indexed
   int size = 1;
 
-  void propTo(int i) { tree[i] = m(tree[i * 2], tree[i * 2 + 1]); }
-
 public:
   SegTree(const int n = 0) {
     while (size < n) size *= 2;
@@ -18,7 +16,7 @@ public:
     while (size < n) size *= 2;
     tree.resize(size * 2, m.id());
     std::copy(first, last, tree.begin() + size);
-    for (int i = size - 1; i >= 1; i--) propTo(i);
+    for (int i = size - 1; i >= 1; i--) tree[i] = m(tree[i * 2], tree[i * 2 + 1]);
   }
 
   T fold(int l, int r) { // [l, r)
@@ -32,7 +30,7 @@ public:
 
   void update(int i, const T &x) {
     tree[i += size] = x;
-    while (i /= 2) propTo(i);
+    while (i /= 2) tree[i] = m(tree[i * 2], tree[i * 2 + 1]);
   }
 
   const T &operator[](int i) const { return tree[i + size]; }
