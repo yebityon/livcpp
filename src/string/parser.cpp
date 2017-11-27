@@ -1,87 +1,171 @@
-template<typename T> struct ParseResult {
-  bool succeeded;
-  T object;
-  size_t pos;
-  ParseResult(const bool succeeded, const T &object, const size_t pos) : succeeded(succeeded), object(object), pos(pos) {}
-  friend std::ostream &operator<<(std::ostream &os, const ParseResult<T> &p) { return os << '{' << (p.succeeded ? "true" : "false") << ',' << p.object << ',' << p.pos << '}'; }
+class Source {
+  using iterator = std::string::iterator;
+  using const_iterator = std::string::const_iterator;
+  const_iterator begin, s;
+
+public:
+  Source(iterator s) : begin(s), s(s) {}
+  Source(const_iterator s) : begin(s), s(s) {}
+
+  char peek() {
+    char ch = *s;
+    if (!ch) throw ex("too short");
+    return ch;
+  }
+
+  void next() {
+    peek();
+    ++s;
+  }
+
+  std::string ex(const std::string &e) {
+    std::ostringstream oss;
+    oss << "[pos: " << s - begin << ", char: " << *s << "] " << e << '\n';
+    return oss.str();
+  }
+
+  bool operator==(const Source &t) const { return s == t.s; }
+  bool operator!=(const Source &t) const { return !(*this == t); }
 };
 
-template<typename T> using Parser = std::function<ParseResult<T>(const std::string &, size_t)>;
+template<typename T> using Parser = std::function<T(Source &)>;
 
-Parser<std::string> token(std::string s) {
-  const size_t n = s.size();
-  return [n = std::move(n), s = std::move(s)](const std::string &target, const size_t pos) {
-    if (target.size() < n) return ParseResult<std::string>(false, {}, pos);
-    return target.substr(pos, n) == s ? ParseResult<std::string>(true, s, pos + n) : ParseResult<std::string>(false, {}, pos);
+Parser<char> satisfy(const std::function<bool(char)> &f) {
+  return [=](Source &s) {
+    char c = s.peek();
+    if (!f(c)) throw s.ex("not satisfy");
+    s.next();
+    return c;
   };
 }
 
-template<typename T> Parser<T> operator||(Parser<T> p1, Parser<T> p2) {
-  return [p1 = std::move(p1), p2 = std::move(p2)](const std::string &target, const size_t pos) {
-    auto r = p1(target, pos);
-    if (r.succeeded) return r;
-    r = p2(target, pos);
-    if (r.succeeded) return r;
-    return ParseResult<T>(false, {}, pos);
+template<typename T> Parser<T> left(const std::string &e) {
+  return [=](Source &s) -> T { throw s.ex(e); };
+}
+
+Parser<char> left(const std::string &e) { return left<char>(e); }
+
+template<typename T1, typename T2> Parser<std::string> operator+(const Parser<T1> &p1, const Parser<T2> &p2) {
+  return [=](Source &s) {
+    std::string r;
+    r += p1(s);
+    r += p2(s);
+    return r;
   };
 }
 
-template<typename T1, typename T2> Parser<std::pair<T1, T2>> operator+(Parser<T1> p1, Parser<T2> p2) {
-  return [p1 = std::move(p1), p2 = std::move(p2)](const std::string &target, const size_t pos) {
-    auto r1 = p1(target, pos);
-    if (!r1.succeeded) return ParseResult<std::pair<T1, T2>>(false, {}, pos);
-    auto r2 = p2(target, r1.pos);
-    if (!r2.succeeded) return ParseResult<std::pair<T1, T2>>(false, {}, pos);
-    return ParseResult<std::pair<T1, T2>>(true, {r1.object, r2.object}, r2.pos);
+template<typename T> Parser<std::string> operator*(int n, const Parser<T> &p) {
+  return [=](Source &s) {
+    std::string r;
+    rep(i, n) r += p(s);
+    return r;
+  };
+}
+template<typename T> Parser<std::string> operator*(const Parser<T> &x, int n) { return n * x; }
+
+template<typename T> Parser<std::string> many_str(const Parser<T> &p) {
+  return [=](Source &s) {
+    std::string r;
+    try {
+      for (;;) r += p(s);
+    } catch (const std::string &) {}
+    return r;
   };
 }
 
-template<typename T1, typename T2> Parser<T2> operator>>(Parser<T1> p1, Parser<T2> p2) {
-  return [p1 = std::move(p1), p2 = std::move(p2)](const std::string &target, const size_t pos) {
-    auto r1 = p1(target, pos);
-    if (!r1.succeeded) return ParseResult<T2>(false, {}, pos);
-    auto r2 = p2(target, r1.pos);
-    if (!r2.succeeded) return ParseResult<T2>(false, {}, pos);
-    return ParseResult<T2>(true, r2.object, r2.pos);
+Parser<std::string> many(const Parser<char> &p) { return many_str(p); }
+Parser<std::string> many(const Parser<std::string> &p) { return many_str(p); }
+template<typename T> Parser<std::list<T>> many(const Parser<T> &p) {
+  return [=](Source &s) {
+    std::list<T> v;
+    try {
+      for (;;) v.emplace_back(p(s));
+    } catch (const std::string &) {}
+    return v;
   };
 }
 
-template<typename T1, typename T2> Parser<T1> operator<<(Parser<T1> p1, Parser<T2> p2) {
-  return [p1 = std::move(p1), p2 = std::move(p2)](const std::string &target, const size_t pos) {
-    auto r1 = p1(target, pos);
-    if (!r1.succeeded) return ParseResult<T1>(false, {}, pos);
-    auto r2 = p2(target, r1.pos);
-    if (!r2.succeeded) return ParseResult<T1>(false, {}, pos);
-    return ParseResult<T1>(true, r1.object, r2.pos);
-  };
-}
+template<typename T> Parser<std::string> many1(const Parser<T> &p) { return p + many(p); }
 
-Parser<char> oneOf(const std::string &s) {
-  std::unordered_set<char> d;
-  for (auto &c : s) d.insert(c);
-  return [d = std::move(d)](const std::string &target, const size_t pos) {
-    if (target.size() <= pos) return ParseResult<char>(false, {}, pos);
-    char c = target[pos];
-    return d.count(c) ? ParseResult<char>(true, c, pos + 1) : ParseResult<char>(false, {}, pos);
-  };
-}
-
-template<typename T, typename S, typename F> Parser<S> fmap(Parser<T> p, F &&f) {
-  return [p = std::move(p), f = std::forward<F>(f)](const std::string &target, const size_t pos) {
-    auto r = p(target, pos);
-    return r.succeeded ? ParseResult<S>(true, f(r.object), r.pos) : ParseResult<S>(false, {}, r.pos);
-  };
-}
-
-template<typename T, typename F> Parser<T> lazy(const F &f) {
-  bool instantiated = false;
-  Parser<T> p;
-  Parser<T> &&q = [f = std::move(f), p = std::move(p), instantiated = std::move(instantiated)](const std::string &target, const size_t pos) mutable {
-    if (!instantiated) {
-      p = f();
-      instantiated = true;
+template<typename T> const Parser<T> operator||(const Parser<T> &p1, const Parser<T> &p2) {
+  return [=](Source &s) {
+    T r;
+    Source back = s;
+    try {
+      r = p1(s);
+    } catch (const std::string &) {
+      if (s != back) throw;
+      r = p2(s);
     }
-    return p(target, pos);
+    return r;
   };
-  return [q = std::make_shared<Parser<T>>(std::move(q))](const std::string &target, const size_t pos) { return (*q)(target, pos); };
+}
+
+template<typename T1, typename T2> Parser<T1> operator<<(const Parser<T1> &p1, const Parser<T2> &p2) {
+  return [=](Source &s) {
+    T1 r = p1(s);
+    p2(s);
+    return r;
+  };
+}
+
+template<typename T1, typename T2> Parser<T2> operator>>(const Parser<T1> &p1, const Parser<T2> &p2) {
+  return [=](Source &s) {
+    p1(s);
+    return p2(s);
+  };
+}
+
+template<typename T> Parser<T> tryp(const Parser<T> &p) {
+  return [=](Source &s) {
+    T r;
+    Source bak = s;
+    try {
+      r = p(s);
+    } catch (const std::string &) {
+      s = bak;
+      throw;
+    }
+    return r;
+  };
+}
+
+template<typename T1, typename T2> Parser<T2> fmap(const std::function<T2(const T1 &)> &f, const Parser<T1> &p) {
+  return [=](Source &s) { return f(p(s)); };
+}
+
+template<typename L, typename R, typename X> Parser<std::function<X(const L &)>> fmap(const std::function<X(const L &, const R &)> &f, const Parser<R> &p) {
+  return [=](Source &s) {
+    R r = p(s);
+    return [=](const L &l) { return f(l, r); };
+  };
+}
+
+Parser<std::function<int(int)>> fmap(const std::function<int(int, int)> &f, const Parser<int> &p) { return fmap<int, int, int>(f, p); }
+
+Parser<int> eval(const Parser<int> &p, const Parser<std::list<std::function<int(int)>>> &fs) {
+  return [=](Source &s) {
+    int x = p(s);
+    auto xs = fs(s);
+    return std::accumulate(xs.begin(), xs.end(), x, [](int a, const std::function<int(int)> &f) { return f(a); });
+  };
+}
+
+auto anyChar = satisfy([](char) { return true; });
+
+Parser<char> char1(char c) {
+  return satisfy([=](char x) { return x == c; }) || left(std::string("not char '") + c + "'");
+}
+
+auto digit = satisfy([](char c) { return '0' <= c && c <= '9'; }) || left("not digit");
+auto upper = satisfy([](char c) { return 'A' <= c && c <= 'Z'; }) || left("not upper");
+auto lower = satisfy([](char c) { return 'a' <= c && c <= 'z'; }) || left("not lower");
+auto alpha = satisfy([](char c) { return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'); }) || left("not alpha");
+auto alphaNum = satisfy([](char c) { return ('0' <= c && c <= '9') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'); }) || left("not alphaNum");
+
+Parser<std::string> token(const std::string &xs) {
+  return [=](Source &s) {
+    for (auto x : xs) (char1(x) || left("not token \"" + xs + "\""))(s);
+    return xs;
+  };
 }
