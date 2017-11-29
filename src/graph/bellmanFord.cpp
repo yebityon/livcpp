@@ -9,10 +9,9 @@ template<int inf = std::numeric_limits<Weight>::max() / 8> std::pair<std::vector
   std::vector<int> negCycle(n);
   rep(i, n) {
     for (auto &e : es) {
-      if (dist[e.src] != inf) {
-        if (cmin(dist[e.dst], dist[e.src] + e.weight)) {
-          if (i == n - 1) negCycle[e.dst] = true;
-        }
+      if (dist[e.src] == inf) continue;
+      if (cmin(dist[e.dst], dist[e.src] + e.weight)) {
+        if (i == n - 1) negCycle[e.dst] = true;
       }
     }
   }
