@@ -11,6 +11,12 @@ public:
     tree.assign(size * 2, m.id());
   }
 
+  SegTree(const int n, const T &x) {
+    while (size < n) size *= 2;
+    tree.assign(size * 2, x);
+    for (int i = size - 1; i >= 1; i--) tree[i] = m(tree[i * 2], tree[i * 2 + 1]);
+  }
+
   template<typename InputIterator> SegTree(InputIterator first, InputIterator last) {
     int n = std::distance(first, last);
     while (size < n) size *= 2;
