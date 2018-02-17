@@ -1,4 +1,4 @@
-template<typename CommutativeGroup> class Dim2RangeSum {
+template<typename CommutativeGroup> class Dim2RangeFold {
   using T = typename CommutativeGroup::value_type;
 
   CommutativeGroup g;
@@ -6,7 +6,7 @@ template<typename CommutativeGroup> class Dim2RangeSum {
   std::vector<std::vector<T>> cache;
 
 public:
-  Dim2RangeSum(const std::vector<std::vector<T>> &raw) : cache(raw) {
+  Dim2RangeFold(const std::vector<std::vector<T>> &raw) : cache(raw) {
     int h = cache.size(), w = cache[0].size();
     rep(i, h) loop(j, 1, w) cache[i][j] += cache[i][j - 1];
     loop(i, 1, h) rep(j, w) cache[i][j] += cache[i - 1][j];
