@@ -1,18 +1,18 @@
 class RangeUnionFind {
-  LazySegTree<RMQ_RUQ_Trait<int>> lst;
+  RangeUpdateSegTree<int> rust;
 
 public:
   RangeUnionFind(const int n) {
     vector<int> ufInit(n);
     iota(all(ufInit), 0);
-    lst = LazySegTree<RMQ_RUQ_Trait<int>>(all(ufInit));
+    rust = RangeUpdateSegTree<int>(all(ufInit));
   }
 
   int root(int x) {
-    int a = lst.fold(x, x + 1);
+    int a = rust[x];
     if (a == x) return x;
     int b = root(a);
-    lst.act(x, x + 1, {true, b});
+    rust.update(x, x + 1, b);
     return b;
   }
 
@@ -21,6 +21,6 @@ public:
   void unite(int a, int b) { // unite [a, b)
     int r = root(a);
     if (a == b) return;
-    lst.act(a, b, {true, r});
+    rust.update(a, b, r);
   }
 };
