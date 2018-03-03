@@ -1,4 +1,4 @@
-std::vector<int> zaatsu(const std::vector<int> &v) {
+std::vector<int> compressByOrd(const std::vector<int> &v) {
   int n = v.size(), k = 0;
   std::map<int, int> m;
   std::vector<int> w(all(v));
