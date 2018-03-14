@@ -27,6 +27,12 @@ public:
     lazy.assign(size * 2, actionM.id());
   }
 
+  LazySegTree(const int n, const T &x) {
+    while (size < n) size *= 2;
+    tree.assign(size * 2, x);
+    lazy.assign(size * 2, actionM.id());
+  }
+
   template<typename InputIterator> LazySegTree(InputIterator first, InputIterator last) {
     int n = std::distance(first, last);
     while (size < n) size *= 2;
