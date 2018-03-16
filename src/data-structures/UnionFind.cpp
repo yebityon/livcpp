@@ -1,8 +1,8 @@
-class UFTree {
+class UnionFind {
   std::vector<int> tree, rank, _size;
 
 public:
-  UFTree(const int n) : tree(n), rank(n), _size(n, 1) { iota(all(tree), 0); }
+  UnionFind(const int n) : tree(n), rank(n), _size(n, 1) { iota(all(tree), 0); }
 
   int root(const int x) { return tree[x] == x ? x : tree[x] = root(tree[x]); }
 
