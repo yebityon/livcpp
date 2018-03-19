@@ -8,8 +8,8 @@ template<typename CommutativeGroup> class Dim2RangeFold {
 public:
   Dim2RangeFold(const std::vector<std::vector<T>> &raw) : cache(raw) {
     int h = cache.size(), w = cache[0].size();
-    rep(i, h) loop(j, 1, w) cache[i][j] += cache[i][j - 1];
-    loop(i, 1, h) rep(j, w) cache[i][j] += cache[i - 1][j];
+    rep(i, h) loop(j, 1, w) cache[i][j] = g(cache[i][j], cache[i][j - 1]);
+    loop(i, 1, h) rep(j, w) cache[i][j] = g(cache[i][j], cache[i - 1][j]);
   }
 
   T fold(const int t, const int b, const int l, const int r) { // [t, b), [l, r)
