@@ -27,6 +27,9 @@ constexpr bool odd(const int n) { return n & 1; }
 constexpr bool even(const int n) { return ~n & 1; }
 template<typename T> std::istream &operator>>(std::istream &is, std::vector<T> &v) { for (T &x : v) is >> x; return is; }
 template<typename A, typename B> std::istream &operator>>(std::istream &is, std::pair<A, B> &p) { is >> p.first >> p.second; return is; }
+template<typename Head, typename Value> auto vectors(const Head &head, const Value &v) { return std::vector<Value>(head, v); }
+template<typename Head, typename... Tail> auto vectors(Head x, Tail... tail) { auto inner = vectors(tail...); return std::vector<decltype(inner)>(x, inner); }
+template<typename T = int, typename... Args> T in(Args &&... args) { T x(args...); std::cin >> x; return x; }
 using namespace std;
 // clang-format on
 
