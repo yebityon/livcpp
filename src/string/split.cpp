@@ -1,6 +1,6 @@
-std::vector<std::string> split(const std::string &s, const std::string &delim) {
-  using string = std::string;
-  std::vector<string> v;
+vector<string> split(const string &s, const string &delim) {
+  using string = string;
+  vector<string> v;
   string::size_type pos = 0;
   while (pos != string::npos) {
     string::size_type p = s.find(delim, pos);

@@ -1,5 +1,5 @@
-int knapsack(int items, int maxW, const std::vector<int> &ws, const std::vector<int> &vs) {
-  std::map<pii, int> dp;
+int knapsack(int items, int maxW, const vector<int> &ws, const vector<int> &vs) {
+  map<pii, int> dp;
   F<int(int, int)> f = [&](int i, int j) {
     pii p = {i, j};
     if (dp.count(p)) return dp[p];

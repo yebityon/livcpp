@@ -1,17 +1,17 @@
 class Combination {
   int r;
-  std::vector<int> data;
+  vector<int> data;
 
 public:
   Combination(int n, int r) : r(r) {
     data.resize(n);
-    std::fill(data.end() - (n - r), data.end(), 1);
+    fill(data.end() - (n - r), data.end(), 1);
   }
 
-  bool next() { return std::next_permutation(data.begin(), data.end()); }
+  bool next() { return next_permutation(data.begin(), data.end()); }
 
-  std::vector<int> get() {
-    std::vector<int> v;
+  vector<int> get() {
+    vector<int> v;
     v.reserve(r);
     rep(i, data.size()) if ((*this)[i]) v.emplace_back(i);
     return v;

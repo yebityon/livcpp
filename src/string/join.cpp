@@ -1,6 +1,6 @@
-template<typename InputIterator> std::string join(InputIterator first, InputIterator last, const std::string &sep) {
+template<typename InputIterator> string join(InputIterator first, InputIterator last, const string &sep) {
   if (first == last) return "";
-  std::stringstream ss;
+  stringstream ss;
   ss << *(first++);
   for_each(first, last, [&](auto &x) { ss << sep << x; });
   return ss.str();

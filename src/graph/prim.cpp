@@ -1,11 +1,11 @@
-std::pair<Weight, Edges> prim(const Graph &g, const int root = 0) {
+pair<Weight, Edges> prim(const Graph &g, const int root = 0) {
   struct comp {
     bool operator()(const Edge &e, const Edge &f) const { return e.weight > f.weight; }
   };
   Edges tree;
   Weight total = 0;
-  std::vector<int> vs(g.size());
-  std::priority_queue<Edge, std::vector<Edge>, comp> q;
+  vector<int> vs(g.size());
+  priority_queue<Edge, vector<Edge>, comp> q;
   q.emplace(-1, root, 0);
   while (q.size()) {
     Edge e = q.top();

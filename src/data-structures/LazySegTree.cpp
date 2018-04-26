@@ -8,8 +8,8 @@ template<typename LSTTrait> class LazySegTree {
   FoldMonoid foldM;
   ActionMonoid actionM;
   int size = 1;
-  std::vector<T> tree; // 1-indexed
-  std::vector<Q> lazy; // 1-indexed
+  vector<T> tree; // 1-indexed
+  vector<Q> lazy; // 1-indexed
 
   void flush(int i, int l, int r) {
     tree[i] = lstTrait.apply(tree[i], powm<ActionMonoid>(lazy[i], r - l));
@@ -35,11 +35,11 @@ public:
   }
 
   template<typename InputIterator> LazySegTree(InputIterator first, InputIterator last) {
-    int n = std::distance(first, last);
+    int n = distance(first, last);
     while (size < n) size *= 2;
     tree.resize(size * 2, foldM.id());
     lazy.resize(size * 2, actionM.id());
-    std::copy(first, last, tree.begin() + size);
+    copy(first, last, tree.begin() + size);
     for (int i = size - 1; i >= 1; i--) tree[i] = foldM(tree[i * 2], tree[i * 2 + 1]);
   }
 

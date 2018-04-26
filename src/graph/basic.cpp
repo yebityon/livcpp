@@ -5,14 +5,14 @@ struct Edge {
   Edge(const int s = 0, const int d = 0, const Weight w = 0) : src(s), dst(d), weight(w) {}
 };
 
-using Edges = std::vector<Edge>;
-using Array = std::vector<Weight>;
-using Matrix = std::vector<Array>;
+using Edges = vector<Edge>;
+using Array = vector<Weight>;
+using Matrix = vector<Array>;
 
 class Graph {
-  std::vector<Edges> g;
-  using iterator = std::vector<Edges>::iterator;
-  using const_iterator = std::vector<Edges>::const_iterator;
+  vector<Edges> g;
+  using iterator = vector<Edges>::iterator;
+  using const_iterator = vector<Edges>::const_iterator;
 
 public:
   Graph(const int size = 0) : g(size) {}

@@ -4,14 +4,14 @@ class PartiallyPersisitentUnionFind {
 public:
   int currentTime = 0;
 
-  PartiallyPersisitentUnionFind(const int &n) : data(n, -1), endTime(n, std::numeric_limits<int>::max()) {}
+  PartiallyPersisitentUnionFind(const int &n) : data(n, -1), endTime(n, numeric_limits<int>::max()) {}
 
   bool unite(int a, int b) {
     a = root(currentTime, a);
     b = root(currentTime, b);
     currentTime++;
     if (a == b) return false;
-    if (data[a] < data[b]) std::swap(a, b);
+    if (data[a] < data[b]) swap(a, b);
     data[b] += data[a];
     data[a] = b;
     endTime[a] = currentTime;

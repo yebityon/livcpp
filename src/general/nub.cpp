@@ -1,5 +1,5 @@
-template<typename T> std::vector<T> nub(const std::vector<T> &xs) {
-  std::set<T> s(xs.begin(), xs.end());
-  std::vector<T> ys(s.begin(), s.end());
+template<typename T> vector<T> nub(const vector<T> &xs) {
+  set<T> s(xs.begin(), xs.end());
+  vector<T> ys(s.begin(), s.end());
   return ys;
 }

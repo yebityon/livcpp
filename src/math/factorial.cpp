@@ -1,5 +1,5 @@
 template<typename Integral = int> Integral factorial(const int n) {
-  static std::vector<Integral> dp(1, 1);
+  static vector<Integral> dp(1, 1);
   int prev = dp.size();
   if (prev < n + 1) {
     dp.resize(n + 1);

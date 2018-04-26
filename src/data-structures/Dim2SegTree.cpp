@@ -3,21 +3,21 @@ template<typename Monoid> class Dim2SegTree {
 
   Monoid m;
 
-  std::vector<std::vector<T>> tree; // 1-indexed
+  vector<vector<T>> tree; // 1-indexed
   int sizeH = 1, sizeW = 1;
 
 public:
   Dim2SegTree(const int h = 0, const int w = 0) {
     while (sizeH < h) sizeH *= 2;
     while (sizeW < w) sizeW *= 2;
-    tree.assign(sizeH * 2, std::vector<T>(sizeW * 2, m.id()));
+    tree.assign(sizeH * 2, vector<T>(sizeW * 2, m.id()));
   }
 
   template<typename InputIterator> Dim2SegTree(InputIterator first, InputIterator last) {
-    int h = std::distance(first, last), w = first->size();
+    int h = distance(first, last), w = first->size();
     while (sizeH < h) sizeH *= 2;
     while (sizeW < w) sizeW *= 2;
-    tree.assign(sizeH * 2, std::vector<T>(sizeW * 2, m.id()));
+    tree.assign(sizeH * 2, vector<T>(sizeW * 2, m.id()));
     int i = 0;
     for (auto iter = first; iter != last; iter++, i++) {
       int j = 0;

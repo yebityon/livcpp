@@ -3,10 +3,10 @@ template<typename CommutativeGroup> class RangeFold {
 
   CommutativeGroup g;
 
-  std::vector<T> cache;
+  vector<T> cache;
 
 public:
-  RangeFold(const std::vector<T> &raw) : cache(raw) {
+  RangeFold(const vector<T> &raw) : cache(raw) {
     size_t w = cache.size();
     loop(i, 1, w) cache[i] = g(cache[i], cache[i - 1]);
   }

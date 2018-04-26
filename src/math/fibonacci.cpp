@@ -1,5 +1,5 @@
 template<typename Integral = int> Integral fibonacci(const int n) {
-  static std::vector<Integral> dp(2, 1);
+  static vector<Integral> dp(2, 1);
   int prev = dp.size();
   if (prev < n + 1) {
     dp.resize(n + 1);

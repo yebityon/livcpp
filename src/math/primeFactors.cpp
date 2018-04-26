@@ -1,5 +1,5 @@
-std::vector<int> primeFactors(int n) {
-  std::vector<int> v;
+vector<int> primeFactors(int n) {
+  vector<int> v;
   int i = 2;
   while (i * i <= n) {
     if (n % i == 0) {

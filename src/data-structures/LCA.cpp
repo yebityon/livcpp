@@ -1,13 +1,13 @@
 class LCA {
   int n = 0;
   int log2_n = 0;
-  std::vector<std::vector<int>> _parent;
-  std::vector<int> _depth;
+  vector<vector<int>> _parent;
+  vector<int> _depth;
 
 public:
   LCA() {}
 
-  LCA(const Graph &g, int root = 0) : n(g.size()), log2_n(log2(n) + 1), _parent(log2_n, std::vector<int>(n)), _depth(n) {
+  LCA(const Graph &g, int root = 0) : n(g.size()), log2_n(log2(n) + 1), _parent(log2_n, vector<int>(n)), _depth(n) {
     dfs(g, root, -1, 0);
     rep(k, log2_n - 1) rep(v, g.size()) _parent[k + 1][v] = _parent[k][v] < 0 ? -1 : _parent[k][_parent[k][v]];
   }
@@ -21,7 +21,7 @@ public:
   }
 
   int get(int u, int v) {
-    if (_depth[u] > _depth[v]) std::swap(u, v);
+    if (_depth[u] > _depth[v]) swap(u, v);
     rep(k, log2_n) if ((_depth[v] - _depth[u]) >> k & 1) v = _parent[k][v];
     if (u == v) return u;
     for (int k = log2_n - 1; k >= 0; k--) {

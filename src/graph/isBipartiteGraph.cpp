@@ -1,8 +1,8 @@
 bool isBipartiteGraph(const Graph &g) {
   int n = g.size();
-  std::vector<int> color(n, -1);
+  vector<int> color(n, -1);
   color[0] = 0;
-  std::queue<int> q;
+  queue<int> q;
   q.push(0);
   while (q.size()) {
     int v = q.front();

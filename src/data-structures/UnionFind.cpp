@@ -1,5 +1,5 @@
 class UnionFind {
-  std::vector<int> tree, rank, _size;
+  vector<int> tree, rank, _size;
 
 public:
   UnionFind(const int n) : tree(n), rank(n), _size(n, 1) { iota(all(tree), 0); }
@@ -11,7 +11,7 @@ public:
   bool unite(int a, int b) {
     a = root(a), b = root(b);
     if (a == b) return false;
-    if (rank[a] < rank[b]) std::swap(a, b);
+    if (rank[a] < rank[b]) swap(a, b);
     tree[b] = a;
     _size[a] += _size[b];
     if (rank[a] == rank[b]) rank[a]++;

@@ -22,8 +22,8 @@ template<int mod> struct modint {
   friend modint<mod> &operator-=(modint<mod> &a, const modint<mod> &b) { return a = a - b; }
   friend modint<mod> &operator*=(modint<mod> &a, const modint<mod> &b) { return a = a * b; }
   friend modint<mod> &operator/=(modint<mod> &a, const modint<mod> &b) { return a = a / b; }
-  friend std::ostream &operator<<(std::ostream &os, const modint<mod> &a) { return os << a.v; }
-  friend std::istream &operator>>(std::istream &is, modint<mod> &a) {
+  friend ostream &operator<<(ostream &os, const modint<mod> &a) { return os << a.v; }
+  friend istream &operator>>(istream &is, modint<mod> &a) {
     int w;
     is >> w;
     a = w;

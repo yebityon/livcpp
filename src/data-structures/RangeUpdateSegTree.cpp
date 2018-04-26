@@ -1,7 +1,7 @@
 template<typename T> class RangeUpdateSegTree {
   int size = 1;
   size_t time = 1;
-  std::vector<pair<size_t, T>> tree; // 1-indexed
+  vector<pair<size_t, T>> tree; // 1-indexed
 
 public:
   RangeUpdateSegTree(const int n = 0) {
@@ -15,7 +15,7 @@ public:
   }
 
   template<typename InputIterator> RangeUpdateSegTree(InputIterator first, InputIterator last) {
-    size_t n = std::distance(first, last);
+    size_t n = distance(first, last);
     while (size < n) size *= 2;
     tree.resize(size * 2);
 

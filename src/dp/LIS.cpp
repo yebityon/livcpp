@@ -1,7 +1,7 @@
-template<typename T> std::vector<T> LIS(const std::vector<T> &v) {
+template<typename T> vector<T> LIS(const vector<T> &v) {
   int n = v.size();
-  const int inf = std::numeric_limits<T>::max();
-  std::vector<T> dp(n, inf);
-  rep(i, n) * std::lower_bound(dp.begin(), dp.end(), v[i]) = v[i];
-  return std::vector<T>(dp.begin(), std::lower_bound(dp.begin(), dp.end(), inf));
+  const int inf = numeric_limits<T>::max();
+  vector<T> dp(n, inf);
+  rep(i, n) * lower_bound(dp.begin(), dp.end(), v[i]) = v[i];
+  return vector<T>(dp.begin(), lower_bound(dp.begin(), dp.end(), inf));
 }

@@ -1,8 +1,8 @@
 Graph toRootedTree(const Graph &g, const int root = 0) {
   int n = g.size();
   Graph tree(n);
-  std::vector<int> ord(n, -1);
-  std::queue<int> q;
+  vector<int> ord(n, -1);
+  queue<int> q;
   q.push(root);
   int k = 0;
   ord[root] = k++;

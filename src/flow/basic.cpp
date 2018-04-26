@@ -6,12 +6,12 @@ struct FlowEdge {
   FlowEdge(const int s = 0, const int d = 0, const Flow c = 0, const int r = 0) : src(s), dst(d), cap(c), rev(r) {}
 };
 
-using FlowEdges = std::vector<FlowEdge>;
+using FlowEdges = vector<FlowEdge>;
 
 class FlowGraph {
-  std::vector<FlowEdges> g;
-  using iterator = std::vector<FlowEdges>::iterator;
-  using const_iterator = std::vector<FlowEdges>::const_iterator;
+  vector<FlowEdges> g;
+  using iterator = vector<FlowEdges>::iterator;
+  using const_iterator = vector<FlowEdges>::const_iterator;
 
 public:
   FlowGraph(const int size = 0) : g(size) {}

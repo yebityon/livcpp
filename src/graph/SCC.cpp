@@ -1,17 +1,17 @@
 class SCC {
 public:
-  std::vector<int> root;
+  vector<int> root;
   Graph g;
 
   SCC(const Graph &g) : g(g) {
     int n = g.size();
-    std::vector<int> ord(n);
+    vector<int> ord(n);
     {
       int k = n - 1;
-      std::vector<int> visited(n), ordered(n);
+      vector<int> visited(n), ordered(n);
       for (int i = 0; i < n; i++) {
         if (visited[i]) continue;
-        std::stack<int> stk;
+        stack<int> stk;
         stk.push(i);
         while (stk.size()) {
           int v = stk.top();
@@ -36,11 +36,11 @@ public:
     for (auto &es : g) {
       for (auto &e : es) rg.addArc(e.dst, e.src, e.weight);
     }
-    root = std::vector<int>(n, -1);
+    root = vector<int>(n, -1);
     int k = 0;
     for (int u : ord) {
       if (root[u] >= 0) continue;
-      std::stack<int> stk;
+      stack<int> stk;
       stk.push(u);
       while (stk.size()) {
         int v = stk.top();

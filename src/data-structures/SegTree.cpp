@@ -2,7 +2,7 @@ template<typename Monoid> class SegTree {
   using T = typename Monoid::value_type;
 
   Monoid m;
-  std::vector<T> tree; // 1-indexed
+  vector<T> tree; // 1-indexed
   int size = 1;
 
 public:
@@ -18,10 +18,10 @@ public:
   }
 
   template<typename InputIterator> SegTree(InputIterator first, InputIterator last) {
-    int n = std::distance(first, last);
+    int n = distance(first, last);
     while (size < n) size *= 2;
     tree.resize(size * 2, m.id());
-    std::copy(first, last, tree.begin() + size);
+    copy(first, last, tree.begin() + size);
     for (int i = size - 1; i >= 1; i--) tree[i] = m(tree[i * 2], tree[i * 2 + 1]);
   }
 

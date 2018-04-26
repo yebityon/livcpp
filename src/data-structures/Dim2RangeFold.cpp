@@ -3,10 +3,10 @@ template<typename CommutativeGroup> class Dim2RangeFold {
 
   CommutativeGroup g;
 
-  std::vector<std::vector<T>> cache;
+  vector<vector<T>> cache;
 
 public:
-  Dim2RangeFold(const std::vector<std::vector<T>> &raw) : cache(raw) {
+  Dim2RangeFold(const vector<vector<T>> &raw) : cache(raw) {
     int h = cache.size(), w = cache[0].size();
     rep(i, h) loop(j, 1, w) cache[i][j] = g(cache[i][j], cache[i][j - 1]);
     loop(i, 1, h) rep(j, w) cache[i][j] = g(cache[i][j], cache[i - 1][j]);
