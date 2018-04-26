@@ -1,8 +1,8 @@
 class UnionFind {
-  vector<int> tree, rank, _size;
+  vector<int> tree, rank, setSize;
 
 public:
-  UnionFind(const int &n) : tree(n), rank(n), _size(n, 1) { iota(all(tree), 0); }
+  UnionFind(const int &n) : tree(n), rank(n), setSize(n, 1) { iota(all(tree), 0); }
 
   int root(const int &x) { return tree[x] == x ? x : tree[x] = root(tree[x]); }
 
@@ -13,12 +13,12 @@ public:
     if (a == b) return false;
     if (rank[a] < rank[b]) swap(a, b);
     tree[b] = a;
-    _size[a] += _size[b];
+    setSize[a] += setSize[b];
     if (rank[a] == rank[b]) rank[a]++;
     return true;
   }
 
-  int sizeOf(const int &x) { return _size[root(x)]; }
+  int setSizeOf(const int &x) { return setSize[root(x)]; }
 
   int size() { return tree.size(); }
 };
