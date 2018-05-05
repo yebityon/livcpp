@@ -14,7 +14,7 @@ public:
     copy(first, last, table[0].begin());
     for (int i = 1; i <= k; i++) {
       for (int j = 0; j + (1 << i) <= n; j++) {
-        int left = table[i - 1][j], right = table[i - 1][j + (1 << (i - 1))];
+        T left = table[i - 1][j], right = table[i - 1][j + (1 << (i - 1))];
         table[i][j] = m(left, right);
       }
     }
