@@ -1,4 +1,4 @@
-template<typename Monoid> constexpr typename Monoid::value_type powm(typename Monoid::value_type a, int b) {
+template<typename Monoid> typename Monoid::value_type powm(typename Monoid::value_type a, int b) {
   Monoid m;
   typename Monoid::value_type c = m.id();
   while (b) {

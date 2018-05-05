@@ -1,6 +1,6 @@
 template<int size, typename T> struct permMonoid {
   using value_type = T;
-  constexpr value_type id() {
+  value_type id() {
     value_type v(size);
     iota(v.begin(), v.end(), 0);
     return v;
